@@ -81,7 +81,7 @@ body {
 .target {
   --row: 0;
   --col: 0;
-  --diameter: 10px;
+  --diameter: 25px;
   --posX:1;
   --posY:1;
 
@@ -90,19 +90,19 @@ body {
   height: var(--diameter);
   left: calc((var(--col) + var(--posX)) * var(--cellSize));
   top: calc((var(--row) + var(--posY)) * var(--cellSize));
-  background: white;
+  background: black;
  
   border-radius: 100%;
   border: solid 0.5em ;
-  border-color: white !important;
+  border-color: yellow !important;
   z-index: 1000;
   transform: translate(-50%, -50%);
   pointer-events: none;
 
-  box-shadow:
-  0 0 10px 5px #fff,  /* inner white */
-  0 0 20px 10px #f0f, /* middle magenta */
-  0 0 30px 15px #0ff; /* outer cyan */
+  /* box-shadow:
+  0 0 10px 5px #fff, 
+  0 0 20px 10px #f0f, 
+  0 0 30px 15px #0ff;  */
 
  /* width: 300px;
   height: 300px;

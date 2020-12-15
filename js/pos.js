@@ -35,9 +35,10 @@ const PLAYER = {
 
     detectTarget: function()  {
 
-    console.log(playerPosX,playerPosY);
-    console.log(targetPosX,targetPosY);
+    // console.log(playerPosX,playerPosY);
+    // console.log(targetPosX,targetPosY);
     console.log(distX,distY);
+
     //if coordonnées player = coordonnées target, win. and restart. (later on, move from level to next)
     if(distX === targetPosX  && distY === targetPosY){
         console.log('touché');
@@ -45,10 +46,10 @@ const PLAYER = {
       },
 
     detectNotAllowed: function() {
-//checker les 4 cases autour du player (par rapport a la position), réciuperer les 4 cases qui l'entourent. 
-//interroger les 4 cases ou la case de la direction dans laquelle j'aimerais aller
-///!\ récupérer la bonne casse et l'état de rotation- 
-        //swicth cases ? modulo car 1 out of 2 authorized.
+    //     -récupère les 4 cases qui entourent le joueur
+    //     -récupérer leur état,
+    //    ---  diagonale en haut à gauche en bas à droite état initial non autorisé
+    //    --- diag. haut droite bas gauche état initial autorisé
     }
 
 
