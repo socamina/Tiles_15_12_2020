@@ -25,7 +25,7 @@ class Cell {
     cell.addEventListener("click", () => {
       this.rotate(90);
       posInit = !posInit;
-      // console.log(posInit);
+      console.log(posInit ,"in cell.js");
     });
   }
 
