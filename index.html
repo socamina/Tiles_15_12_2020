@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="author" content="soraya" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="config/config.js"></script>
+
+    <script src="js/target.js"></script>
+    <script src="js/pos.js"></script>
+    <script src="js/cell.js"></script>
+    <script src="js/main.js"></script>
+
+    <title>Truchet Grid</title>
+  </head>
+  <body>
+    <div class="container" id="container">
+      <div class="cell-grid"></div>
+      <div class="debug-grid"></div>
+    </div>
+
+    <div class="template">
+      <div class="cell" tabindex="-1">
+        <div class="pattern">
+          <div class="circle1"></div>
+          <div class="circle2"></div>
+        </div>
+      </div>
+      <div class="debug-cell">
+      </div>
+      <div class="player">
+      </div>
+      <div class="target">
+      </div>
+    </div>
+
+  </body>
+</html>

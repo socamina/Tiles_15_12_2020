@@ -1,0 +1,158 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: rgb(233, 240, 247);
+
+  /*center element*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#container {
+  --cellSize: 0;
+  --rows: 11;
+  --cols:11;
+  width: calc(var(--cols) * var(--cellSize));
+  height: calc(var(--rows) * var(--cellSize));
+  background: black;
+  position: relative;
+}
+
+.cell {
+  --row: 0;
+  --angle: 0deg;
+  --col: 0;
+  position: absolute;
+  width: var(--cellSize);
+  height: var(--cellSize);
+  top: calc(var(--col) * var(--cellSize));
+  left: calc(var(--row) * var(--cellSize));
+  /* transform: translate(calc(var(--col) * var(--cellSize)), ); */
+  background: black;
+  overflow: hidden;
+  transform: rotateZ(var(--angle));
+  transition: transform 0.2s;
+
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.cell:focus {
+  outline: none;
+  z-index: 500;
+}
+
+.debug-cell {
+  --row: 0;
+  --col: 0;
+  --diameter: 10px;
+  position: absolute;
+  width: var(--diameter);
+  height: var(--diameter);
+  top: calc((var(--col) + 1) * var(--cellSize));
+  left: calc((var(--row) + 1) * var(--cellSize));
+  background: red;
+  border-radius: 100%;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+}
+
+.player {
+  --row: 0;
+  --col: 0;
+  --diameter: 35px;
+  --posX:1;
+  --posY:1;
+
+  position: absolute;
+  width: var(--diameter);
+  height: var(--diameter);
+  left: calc((var(--col) + var(--posX)) * var(--cellSize));
+  top: calc((var(--row) + var(--posY)) * var(--cellSize));
+  background: yellow;
+  border-radius: 100%;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+
+.target {
+  --row: 0;
+  --col: 0;
+  --diameter: 10px;
+  --posX:1;
+  --posY:1;
+
+  position: absolute;
+  width: var(--diameter);
+  height: var(--diameter);
+  left: calc((var(--col) + var(--posX)) * var(--cellSize));
+  top: calc((var(--row) + var(--posY)) * var(--cellSize));
+  background: white;
+ 
+  border-radius: 100%;
+  border: solid 0.5em ;
+  border-color: white !important;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+
+  box-shadow:
+  0 0 10px 5px #fff,  /* inner white */
+  0 0 20px 10px #f0f, /* middle magenta */
+  0 0 30px 15px #0ff; /* outer cyan */
+
+ /* width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 50px #fff,      /* inner white 
+    inset 20px 0 80px #f0f,   /* inner left magenta short 
+    inset -20px 0 80px #0ff,  /* inner right cyan short 
+    inset 20px 0 300px #f0f,  /* inner left magenta broad 
+    inset -20px 0 300px #0ff, /* inner right cyan broad 
+    0 0 50px #fff,            /* outer white 
+    -10px 0 80px #f0f,        /* outer left magenta 
+    10px 0 80px #0ff;         /* outer right cyan */
+
+}
+
+
+/*PATTERN*/
+
+.pattern {
+  width: 100%;
+  height: 100%;
+ background: #030500;
+}
+
+.circle1 {
+  --radius: 93%;
+  width: var(--radius);
+  height: var(--radius);
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  transform: translate(-50%, -50%);
+  border: 5px solid aliceblue;
+  border-radius: 100%;
+}
+
+.circle2 {
+  --radius: 93%;
+  width: var(--radius);
+  height: var(--radius);
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+  border: 5px solid aliceblue;
+  border-radius: 100%;
+}
+
+.template {
+  display: none;
+}
