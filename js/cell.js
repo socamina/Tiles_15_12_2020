@@ -3,7 +3,6 @@ class Cell {
     this.col = col;
     this.row = row;
     this.angle = angle;
-  //  this.posInit = false;
 
     this.create(col, row);
     this.rotateTo(angle);
@@ -19,13 +18,13 @@ class Cell {
     cell.style.setProperty("--col", col);
     cell.style.setProperty("--row", row);
     cell.style.setProperty("--angle", 90);
-    
-    let posInit = true;
+
+    this.isHorizontal = true;
 
     cell.addEventListener("click", () => {
       this.rotate(90);
-      posInit = !posInit;
-      console.log(posInit ,"in cell.js");
+      this.isHorizontal = !this.isHorizontal;
+      console.log(this.isHorizontal, "in cell.js");
     });
   }
 
@@ -39,6 +38,5 @@ class Cell {
     this.elem.style.setProperty("--angle", this.angle + "deg");
 
     //si case cliquéee, on passee d'un booléan true à false
-    
   }
 }
