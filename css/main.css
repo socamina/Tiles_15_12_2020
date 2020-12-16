@@ -16,8 +16,9 @@ body {
   --cols:11;
   width: calc(var(--cols) * var(--cellSize));
   height: calc(var(--rows) * var(--cellSize));
-  background: black;
+  /* background: black; */
   position: relative;
+  /* transform: rotate(45deg) scale(0.9); */
 }
 
 .cell {
@@ -27,13 +28,13 @@ body {
   position: absolute;
   width: var(--cellSize);
   height: var(--cellSize);
-  top: calc(var(--col) * var(--cellSize));
-  left: calc(var(--row) * var(--cellSize));
+  top: calc(var(--row) * var(--cellSize));
+  left: calc(var(--col) * var(--cellSize));
   /* transform: translate(calc(var(--col) * var(--cellSize)), ); */
   background: black;
   overflow: hidden;
   transform: rotateZ(var(--angle));
-  transition: transform 0.2s;
+  transition: transform 0.5s;
 
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
@@ -50,12 +51,14 @@ body {
   position: absolute;
   width: var(--diameter);
   height: var(--diameter);
-  top: calc((var(--col) + 1) * var(--cellSize));
-  left: calc((var(--row) + 1) * var(--cellSize));
+  top: calc((var(--row) + 1) * var(--cellSize));
+  left: calc((var(--col) + 1) * var(--cellSize));
   background: red;
   border-radius: 100%;
   z-index: 1000;
   transform: translate(-50%, -50%);
+
+  display: none;
 }
 
 .player {
@@ -68,15 +71,23 @@ body {
   position: absolute;
   width: var(--diameter);
   height: var(--diameter);
-  left: calc((var(--col) + var(--posX)) * var(--cellSize));
-  top: calc((var(--row) + var(--posY)) * var(--cellSize));
+  left: calc((var(--col) + var(--posX)  + 1) * var(--cellSize));
+  top: calc((var(--row) + var(--posY)  + 1) * var(--cellSize));
   background: yellow;
   border-radius: 100%;
   z-index: 1000;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  transition: all .1s;
 }
 
+.player.collide {
+
+  --bumpX: 50%;
+  --bumpY: 50%;
+
+  animation: collide .15s normal;
+}
 
 .target {
   --row: 0;
@@ -116,6 +127,22 @@ body {
     0 0 50px #fff,            /* outer white 
     -10px 0 80px #f0f,        /* outer left magenta 
     10px 0 80px #0ff;         /* outer right cyan */
+}
+
+@keyframes collide {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+
+  50% {
+
+    transform: translate(calc(-50% + var(--bumpX)), calc(-50% + var(--bumpY)));
+
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  }
 
 }
 

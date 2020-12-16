@@ -3,17 +3,15 @@
 //paspossible de faire un rect?
 
 const GRID = {
-  rows:11,
-  cols: 11,
-  cellSize:40,
+  rows: 11,
+  cols: 15,
+  cellSize: 20,
 };
 
 const CELLS = []; //2dArray
-let distX= 1;
-let distY= 1;
 
-let playerPosX =0; //Math.floor(Math.random()*7); //0;
-let playerPosY =0; //Math.floor(Math.random()*7); //0;
+let playerPosX = 0; //Math.floor(Math.random()*7); //0;
+let playerPosY = 0; //Math.floor(Math.random()*7); //0;
 
 let targetPosX = 7; //est ce que position aléatoire de 2 en fonction du joueur possible eou je dois choisir dès le début ?
 let targetPosY = 3;
@@ -24,95 +22,34 @@ window.addEventListener("load", () => {
   createPlayerPositions();
 
   //  PLAYER.create(1,1);
-  PLAYER.create(playerPosX,playerPosY);
-  console.log(playerPosX,playerPosY);
-  TARGET.create(targetPosX,targetPosY);
+  PLAYER.create(0, 0);
+  console.log(playerPosX, playerPosY);
+  TARGET.create(targetPosX, targetPosY);
   // console.log(targetPosX,targetPosY);
 });
 
 window.addEventListener("keydown", (event) => {
+  console.log(event.key, 'Dead');
 
-  //haut gauche R
-  if ((event.keyCode == 82)) {
-    // console.log("top left");
-    if (distX>= 2 && distY>=2){
-    distX = distX-1;
-    distY = distY-1;
-  } 
-    PLAYER.move(distX,distY);
-}
+  // if (event.key == "ArrowUp") {
+  //   PLAYER.move(-1, -1);
+  // } else if (event.key == "ArrowRight") {
+  //   PLAYER.move(1, -1);
+  // } else if (event.key == "ArrowDown") {
+  //   PLAYER.move(1, 1);
+  // } else if (event.key == "ArrowLeft") {
+  //   PLAYER.move(-1, 1);
+  // }
 
-// if ((event.keyCode == 82)) {
-//       // console.log("top left");
-//       if (playerPosX>0 && playerPosX<GRID.cols-1 && playerPosY>0 && playerPosY<GRID.rows-1){
-//       playerPosX = playerPosX++;
-//       playerPosY= playerPosY++;
-//     } 
-//       PLAYER.move(playerPosX,playerPosY);
-//       // console.log(playerPosX,playerPosY);
-//   }
-
-  //haut droite Z
-//   else if ((event.keyCode == 90)) {
-//     // console.log("top right");
-//     if (playerPosX>0 && playerPosX<GRID.cols-1 && playerPosY>0 && playerPosY<GRID.rows-1){
-//     playerPosX = playerPosX++;
-//     playerPosY= playerPosY--;
-//   } 
-//     PLAYER.move(playerPosX,playerPosY);
-//     console.log(playerPosX,playerPosY);
-// }
-  
-  if ((event.keyCode == 90)) {
-    // console.log("top right");
-    if (distX<=(GRID.rows-2) && distY>=2){
-    distX = distX+1;
-    distY = distY-1;
-    }
-    PLAYER.move(distX,distY);
+  if (event.key == "è") {
+    PLAYER.move(-1, -1);
+  } else if (event.key == "Dead") {
+    PLAYER.move(1, -1);
+  } else if (event.key == "à") {
+    PLAYER.move(1, 1);
+  } else if (event.key == "é") {
+    PLAYER.move(-1, 1);
   }
-
-
-     //bas droite N
-  //   else if ((event.keyCode == 78)) {
-  //     // console.log("bottom right");
-  //     if (playerPosX>0 && playerPosX<GRID.cols-1 && playerPosY>0 && playerPosY<GRID.rows-1){
-  //     playerPosX = playerPosX++;
-  //     playerPosY= playerPosY++;
-  //   } 
-  //     PLAYER.move(playerPosX,playerPosY);
-  //     console.log(playerPosX,playerPosY);
-  // }
-  
-     else if ((event.keyCode == 78)) {
-      // console.log("bottom right");
-      if (distX<=(GRID.rows-2) && distY<=(GRID.cols-2)){
-      distX = distX+1;
-      distY = distY+1;
-    }
-      PLAYER.move(distX,distY);
-    }
-
-     //bas gauche C
-
-  //    if ((event.keyCode == 67)) {
-  //     // console.log("bottom left");
-  //     if (playerPosX>0 && playerPosX<GRID.cols-1 && playerPosY>0 && playerPosY<GRID.rows-1){
-  //     playerPosX = playerPosX--;
-  //     playerPosY= playerPosY++;
-  //   } 
-  //     PLAYER.move(playerPosX,playerPosY);
-  //     console.log(playerPosX,playerPosY);
-  // }
-    
-    else if ((event.keyCode == 67)) {
-      // console.log("bottom left");
-      if (distX>=2 && distY<=(GRID.cols-2)){
-      distX = distX-1;
-      distY =distY+1;
-      }
-      PLAYER.move(distX,distY);
-    }
 
 });
 
@@ -137,8 +74,8 @@ function createGrid() {
 function createPlayerPositions() {
   const debugGrid = document.querySelector(".container .debug-grid");
 
-  for (let row = 0; row < GRID.rows-1; row++) {
-    for (let col = 0; col < GRID.cols-1; col++) {
+  for (let row = 0; row < GRID.rows - 1; row++) {
+    for (let col = 0; col < GRID.cols - 1; col++) {
       createDebugPoint(col, row, debugGrid);
     }
   }
