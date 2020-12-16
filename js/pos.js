@@ -51,13 +51,14 @@ const PLAYER = {
     //     -récupérer leur état,
     //    ---  diagonale en haut à gauche en bas à droite état initial non autorisé
     //    --- diag. haut droite bas gauche état initial autorisé
-    if(CELLS.posInit ==true){
-      //player can move in 2-4
-      console.log(CELL.posInit, "from pos.js");
-    } else {
-      //player can move in 1-3
-      console.log(CELL.posInit, "from pos.js");
-    }
+
+    // if(CELLS.posInit ==true){
+      // //player can move in 2-4
+      // console.log(CELL.posInit, "from pos.js");
+    // } else {
+      // //player can move in 1-3
+      // console.log(CELL.posInit, "from pos.js");
+    // }
     }
 
 
