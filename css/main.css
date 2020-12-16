@@ -36,7 +36,7 @@ body {
   transform: rotateZ(var(--angle));
   transition: transform 0.5s;
 
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
 }
 
 .cell:focus {
@@ -101,12 +101,12 @@ body {
   height: var(--diameter);
   left: calc((var(--col) + var(--posX)) * var(--cellSize));
   top: calc((var(--row) + var(--posY)) * var(--cellSize));
-  background: black;
+  background: rgb(0,0,0);
  
   border-radius: 100%;
   border: solid 0.5em ;
   border-color: yellow !important;
-  z-index: 1000;
+  z-index: 999;
   transform: translate(-50%, -50%);
   pointer-events: none;
 

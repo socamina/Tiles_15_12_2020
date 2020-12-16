@@ -4,8 +4,8 @@
 
 const GRID = {
   rows: 11,
-  cols: 15,
-  cellSize: 20,
+  cols: 17,
+  cellSize: 25,
 };
 
 const CELLS = []; //2dArray
@@ -13,23 +13,22 @@ const CELLS = []; //2dArray
 let playerPosX = 0; //Math.floor(Math.random()*7); //0;
 let playerPosY = 0; //Math.floor(Math.random()*7); //0;
 
-let targetPosX = 7; //est ce que position aléatoire de 2 en fonction du joueur possible eou je dois choisir dès le début ?
-let targetPosY = 3;
+let targetPosX = 12; //est ce que position aléatoire de 2 en fonction du joueur possible eou je dois choisir dès le début ?
+let targetPosY = 4;
 
 window.addEventListener("load", () => {
   resizeContainer();
   createGrid();
   createPlayerPositions();
 
-  //  PLAYER.create(1,1);
   PLAYER.create(0, 0);
-  console.log(playerPosX, playerPosY);
+   console.log(playerPosX, playerPosY);
   TARGET.create(targetPosX, targetPosY);
   // console.log(targetPosX,targetPosY);
 });
 
 window.addEventListener("keydown", (event) => {
-  console.log(event.key, 'Dead');
+  // console.log(event.key, 'Dead');
 
   // if (event.key == "ArrowUp") {
   //   PLAYER.move(-1, -1);

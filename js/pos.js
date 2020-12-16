@@ -62,9 +62,15 @@ const PLAYER = {
     let player = this.player;
     player.style.setProperty("--posX", this.col);
     player.style.setProperty("--posY", this.row);
+    console.log(this.col,this.row);
 
-    // this.detectTarget();
-    // this.detectNotAllowed();
+    this.detectTarget();
+
+if( topWall.isHorizontal  && !rightWall.isHorizontal && bottomWall.isHorizontal && !leftWall.isHorizontal ){
+  console.log("you're trapped. GAME OVER!");
+}
+
+
   },
 
   bumpToWall: function(moveX, moveY) {
@@ -79,33 +85,17 @@ const PLAYER = {
 
     let amplitude = 35;
 
-    console.log(moveX, moveY);
+    // console.log(moveX, moveY);
 
     this.player.style.setProperty("--bumpX", moveX * amplitude + '%');
     this.player.style.setProperty("--bumpY", moveY * amplitude + '%');
     this.player.classList.add('collide');
-
   },
 
   detectTarget: function () {
     //if coordonnées player = coordonnées target, win. and restart. (later on, move from level to next)
-    if (distX === targetPosX && distY === targetPosY) {
-      console.log("touché");
+    if (this.col === targetPosX && this.row === targetPosY) {
+      console.log("touché gagné!, how do we  step the levels");
     }
-  },
-
-  detectNotAllowed: function () {
-    //RESOUDRE PROBLEMEE DE LA FOCNTION MOVE FIRST
-    //     -récupère les 4 cases qui entourent le joueur
-    //     -récupérer leur état,
-    //    ---  diagonale en haut à gauche en bas à droite état initial non autorisé
-    //    --- diag. haut droite bas gauche état initial autorisé
-    // if(CELLS.posInit ==true){
-    // //player can move in 2-4
-    // console.log(CELL.posInit, "from pos.js");
-    // } else {
-    // //player can move in 1-3
-    // console.log(CELL.posInit, "from pos.js");
-    // }
   },
 };
