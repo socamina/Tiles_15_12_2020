@@ -18,6 +18,11 @@ let targetPosY = 4;
 
 window.addEventListener("load", () => {
   resizeContainer();
+  //mettre dans une autre fonction create 
+ createLevel(0);
+});
+
+function createLevel(level){
   createGrid();
   createPlayerPositions();
 
@@ -25,7 +30,20 @@ window.addEventListener("load", () => {
    console.log(playerPosX, playerPosY);
   TARGET.create(targetPosX, targetPosY);
   // console.log(targetPosX,targetPosY);
-});
+}
+
+function turnRandomCell(level){
+  const rotatingCell = [];
+for(i=0; i<level; i++){
+const col = Math.floor(Math.random()*GRID.cols);
+const row = Math.floor(Math.random()*GRID.rows);
+rotatingCell.push({col:col, row:row})
+}
+rotatingCell.forEach((item, index)=>{
+  CELLS[item.col][item.row];
+  //vérifier sens grille
+})
+}
 
 window.addEventListener("keydown", (event) => {
   // console.log(event.key, 'Dead');

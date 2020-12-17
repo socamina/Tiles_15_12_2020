@@ -22,6 +22,7 @@ class Cell {
     this.isHorizontal = true;
 
     cell.addEventListener("click", () => {
+      console.log(CELLS);
       this.rotate(90);
       this.isHorizontal = !this.isHorizontal;
       console.log(this.isHorizontal, "in cell.js");
