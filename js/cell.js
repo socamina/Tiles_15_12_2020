@@ -1,8 +1,9 @@
 class Cell {
-  constructor(col, row, angle, posInit) {
+  constructor(col, row, angle, posInit,level) {
     this.col = col;
     this.row = row;
     this.angle = angle;
+    this.level = level;
 
     this.create(col, row);
     this.rotateTo(angle);
@@ -21,12 +22,16 @@ class Cell {
 
     this.isHorizontal = true;
 
-    cell.addEventListener("click", () => {
-      console.log(CELLS);
+    cell.addEventListener("click", this.rotateCell.bind(this));
+  }
+
+  rotateCell(e){
+     //à qq part ici surmnet indqiueur le nniveau ?
+      // console.log(CELLS);
       this.rotate(90);
       this.isHorizontal = !this.isHorizontal;
-      console.log(this.isHorizontal, "in cell.js");
-    });
+      // console.log(this.isHorizontal, "in cell.js");
+     if(e) turnRandomCell(this.level);
   }
 
   rotate(angle) {

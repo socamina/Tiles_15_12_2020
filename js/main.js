@@ -15,14 +15,16 @@ let playerPosY = 0; //Math.floor(Math.random()*7); //0;
 
 let targetPosX = 12; //est ce que position aléatoire de 2 en fonction du joueur possible eou je dois choisir dès le début ?
 let targetPosY = 4;
+let level = -1;
 
 window.addEventListener("load", () => {
   resizeContainer();
   //mettre dans une autre fonction create 
- createLevel(0);
+ createLevel();
 });
 
-function createLevel(level){
+function createLevel(){
+  level++
   createGrid();
   createPlayerPositions();
 
@@ -34,15 +36,17 @@ function createLevel(level){
 
 function turnRandomCell(level){
   const rotatingCell = [];
-for(i=0; i<level; i++){
-const col = Math.floor(Math.random()*GRID.cols);
-const row = Math.floor(Math.random()*GRID.rows);
-rotatingCell.push({col:col, row:row})
-}
-rotatingCell.forEach((item, index)=>{
-  CELLS[item.col][item.row];
-  //vérifier sens grille
-})
+  for(i=0; i<level; i++){
+    const col = Math.floor(Math.random()*GRID.cols);
+    const row = Math.floor(Math.random()*GRID.rows);
+    CELLS[row][col].rotateCell(null);
+    // rotatingCell.push({col:col, row:row})
+  }
+  // rotatingCell.forEach((item, index)=>{
+  //   // console.log(CELLS[item.row][item.col]);
+  //   //vérifier sens grille
+  //   CELLS[item.row][item.col].rotateCell(null);
+  // });
 }
 
 window.addEventListener("keydown", (event) => {
@@ -83,7 +87,7 @@ function createGrid() {
     CELLS[row] = rows;
 
     for (let col = 0; col < GRID.cols; col++) {
-      rows[col] = new Cell(col, row, 0, false);
+      rows[col] = new Cell(col, row, 0, false,level);
     }
   }
 }

@@ -96,6 +96,7 @@ if( topWall.isHorizontal  && !rightWall.isHorizontal && bottomWall.isHorizontal 
     //if coordonnées player = coordonnées target, win. and restart. (later on, move from level to next)
     if (this.col === targetPosX && this.row === targetPosY) {
       console.log("touché gagné!, how do we  step the levels");
+      createLevel();
     }
   },
 };
