@@ -26,7 +26,6 @@ class Cell {
   }
 
   rotateCell(e){
-     //à qq part ici surmnet indqiueur le nniveau ?
       // console.log(CELLS);
       this.rotate(90);
       this.isHorizontal = !this.isHorizontal;
@@ -42,7 +41,5 @@ class Cell {
   rotateTo(angle) {
     this.angle = angle;
     this.elem.style.setProperty("--angle", this.angle + "deg");
-
-    //si case cliquéee, on passee d'un booléan true à false
   }
 }

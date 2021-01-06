@@ -1,23 +1,48 @@
 // REMPLIR un tableau avec des cellules + class Cell
 
 const GRID = {
-  rows: 11,
-  cols: 17,
+  rows: 12,
+  cols: 16,
   cellSize: 25,
 };
 
 const CELLS = []; //2dArray
 
-let playerPosX = 0; //Math.floor(Math.random()*7); //0;
-let playerPosY = 0; //Math.floor(Math.random()*7); //0;
+let player1PosX = 0; //Math.floor(Math.random()*7)*2; //0;
+let player1PosY = 0; //Math.floor(Math.random()*5)*2; //0;
 
-let targetPosX = 12; //est ce que position aléatoire de 2 en fonction du joueur possible eou je dois choisir dès le début ?
-let targetPosY = 4;
+let target1PosX = 12; //Math.floor(Math.random()*7)*2 //12; //est ce que position aléatoire de 2 en fonction du joueur possible eou je dois choisir dès le début ?
+let target1PosY = 4; //Math.floor(Math.random()*5)*2;//4
+
+let player2PosX = 9;
+let player2PosY = 5; 
+
+let target2PosX = 5; 
+let target2PosY = 7; 
+
+
 let level = -1;
+let playerId;
 
 window.addEventListener("load", () => {
+  const urlParameter = new URLSearchParams(window.location.search);
+  playerId = urlParameter.get("player");
   resizeContainer();
-  //mettre dans une autre fonction create
+
+  const data = {
+    id: playerId,
+    player1PosXdata: player1PosX,
+    player1PosYdata: player1PosY,
+    target1PosXdata: target1PosX,
+    target1PosYdata: target1PosY,
+
+    player2PosXdata: player1PosX,
+    player2PosYdata: player1PosY,
+    target2PosXdata: target1PosX,
+    target2PosYdata: target1PosY,
+  };
+  SEND_MESSAGE("TILES", data);
+
   createLevel();
 });
 
@@ -26,9 +51,14 @@ function createLevel() {
   createGrid();
   createPlayerPositions();
 
-  PLAYER.create(0, 0);
-  console.log(playerPosX, playerPosY);
-  TARGET.create(targetPosX, targetPosY);
+  PLAYER.create(player1PosX, player1PosY);
+  PLAYER.create(player2PosX, player2PosY);
+  // PLAYER.create(0, 0);
+  console.log(player1PosX, player1PosY);
+  console.log(player2PosX, player2PosY);
+
+  TARGET.create(target1PosX, target1PosY);
+  TARGET.create(target2PosX, target2PosY);
   // console.log(targetPosX,targetPosY);
 }
 
@@ -46,29 +76,6 @@ function turnRandomCell(level) {
   //   CELLS[item.row][item.col].rotateCell(null);
   // });
 }
-
-// window.addEventListener("keydown", (event) => {
-//   // console.log(event.key, 'Dead');
-//   // if (event.key == "ArrowUp") {
-//   //   PLAYER.move(-1, -1);
-//   // } else if (event.key == "ArrowRight") {
-//   //   PLAYER.move(1, -1);
-//   // } else if (event.key == "ArrowDown") {
-//   //   PLAYER.move(1, 1);
-//   // } else if (event.key == "ArrowLeft") {
-//   //   PLAYER.move(-1, 1);
-//   // }
-
-//   if (event.key == "è") {
-//     PLAYER.move(-1, -1);
-//   } else if (event.key == "Dead") {
-//     PLAYER.move(1, -1);
-//   } else if (event.key == "à") {
-//     PLAYER.move(1, 1);
-//   } else if (event.key == "é") {
-//     PLAYER.move(-1, 1);
-//   }
-// });
 
 let keysPressed = {};
 document.addEventListener("keydown", (event) => {
