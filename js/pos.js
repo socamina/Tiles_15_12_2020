@@ -94,7 +94,11 @@ if( topWall.isHorizontal  && !rightWall.isHorizontal && bottomWall.isHorizontal 
 
   detectTarget: function () {
     //if coordonnées player = coordonnées target, win. and restart. (later on, move from level to next)
-    if (this.col === targetPosX && this.row === targetPosY) {
+    if (playerId==1 && this.col === target1PosX && this.row === target1PosY) {
+      console.log("touché gagné!");
+      createLevel();
+    }
+    if (playerId==2 && this.col === target2PosX && this.row === target2PosY) {
       console.log("touché gagné!");
       createLevel();
     }

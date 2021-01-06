@@ -20,9 +20,9 @@ let player2PosY = 5;
 let target2PosX = 5; 
 let target2PosY = 7; 
 
-
 let level = -1;
 let playerId;
+
 
 window.addEventListener("load", () => {
   const urlParameter = new URLSearchParams(window.location.search);
@@ -40,7 +40,10 @@ window.addEventListener("load", () => {
     player2PosYdata: player1PosY,
     target2PosXdata: target1PosX,
     target2PosYdata: target1PosY,
+
+    //envoyer la grille somehow ?
   };
+
   SEND_MESSAGE("TILES", data);
 
   createLevel();
@@ -51,8 +54,8 @@ function createLevel() {
   createGrid();
   createPlayerPositions();
 
-  PLAYER.create(player1PosX, player1PosY);
-  PLAYER.create(player2PosX, player2PosY);
+   PLAYER.create(player1PosX, player1PosY);
+   PLAYER.create(player2PosX, player2PosY);
   // PLAYER.create(0, 0);
   console.log(player1PosX, player1PosY);
   console.log(player2PosX, player2PosY);
@@ -83,6 +86,12 @@ document.addEventListener("keydown", (event) => {
 
   if (keysPressed["ArrowUp"] && event.key == "ArrowLeft") {
     PLAYER.move(-1, -1);
+    // if(playerId == 1){
+    //   player1.move(-1,-1);
+    // }
+    // if(playerId == 2){
+    //   player2.move(-1,-1);
+    // }
   } else if (keysPressed["ArrowUp"] && event.key == "ArrowRight") {
     PLAYER.move(1, -1);
   } else if (keysPressed["ArrowDown"] && event.key == "ArrowRight") {
