@@ -21,9 +21,9 @@ const PLAYER = {
     player.style.setProperty("--posX", this.col);
     player.style.setProperty("--posY", this.row);
 
-    player.addEventListener('animationend', (evt) => {
-      if(evt.target === this.player, evt.animationName === 'collide')
-        player.classList.remove('collide')
+    player.addEventListener("animationend", (evt) => {
+      if ((evt.target === this.player, evt.animationName === "collide"))
+        player.classList.remove("collide");
     });
   },
 
@@ -32,11 +32,13 @@ const PLAYER = {
     let newRow = this.row + moveY;
 
     // boundaries collision
-    if (newCol < 0) this.bumpToWall(moveX, moveY), moveX = moveY = 0;
-    else if (newCol > GRID.cols - 2) this.bumpToWall(moveX, moveY), moveX = moveY = 0;
+    if (newCol < 0) this.bumpToWall(moveX, moveY), (moveX = moveY = 0);
+    else if (newCol > GRID.cols - 2)
+      this.bumpToWall(moveX, moveY), (moveX = moveY = 0);
 
-    if (newRow < 0) this.bumpToWall(moveX, moveY), moveX = moveY = 0;
-    else if (newRow > GRID.rows - 2) this.bumpToWall(moveX, moveY), moveX = moveY = 0;
+    if (newRow < 0) this.bumpToWall(moveX, moveY), (moveX = moveY = 0);
+    else if (newRow > GRID.rows - 2)
+      this.bumpToWall(moveX, moveY), (moveX = moveY = 0);
 
     newCol = this.col;
     newRow = this.row;
@@ -51,10 +53,14 @@ const PLAYER = {
     let moveRight = moveY < 0 && moveX > 0;
     let moveBottom = moveY > 0 && moveX > 0;
 
-    if (moveTop && topWall.isHorizontal) this.bumpToWall(moveX, moveY), moveX = moveY = 0;
-    if (moveRight && !rightWall.isHorizontal) this.bumpToWall(moveX, moveY), moveX = moveY = 0;
-    if (moveBottom && bottomWall.isHorizontal) this.bumpToWall(moveX, moveY), moveX = moveY = 0;
-    if (moveLeft && !leftWall.isHorizontal) this.bumpToWall(moveX, moveY), moveX = moveY = 0;
+    if (moveTop && topWall.isHorizontal)
+      this.bumpToWall(moveX, moveY), (moveX = moveY = 0);
+    if (moveRight && !rightWall.isHorizontal)
+      this.bumpToWall(moveX, moveY), (moveX = moveY = 0);
+    if (moveBottom && bottomWall.isHorizontal)
+      this.bumpToWall(moveX, moveY), (moveX = moveY = 0);
+    if (moveLeft && !leftWall.isHorizontal)
+      this.bumpToWall(moveX, moveY), (moveX = moveY = 0);
 
     this.col += moveX;
     this.row += moveY;
@@ -62,24 +68,28 @@ const PLAYER = {
     let player = this.player;
     player.style.setProperty("--posX", this.col);
     player.style.setProperty("--posY", this.row);
-    console.log(this.col,this.row);
+    console.log(this.col, this.row);
 
     this.detectTarget();
 
-if( topWall.isHorizontal  && !rightWall.isHorizontal && bottomWall.isHorizontal && !leftWall.isHorizontal ){
-  console.log("you're trapped. GAME OVER!");
-}
-
-
+    if (
+      topWall.isHorizontal &&
+      !rightWall.isHorizontal &&
+      bottomWall.isHorizontal &&
+      !leftWall.isHorizontal
+    ) {
+      console.log("you're trapped. GAME OVER!");
+    }
   },
 
-  bumpToWall: function(moveX, moveY) {
-
-    let x = 0, y = 0;
+  bumpToWall: function (moveX, moveY) {
+    let x = 0,
+      y = 0;
 
     // console.log(moveX, moveY);
 
-    if(moveX === 0 && moveY === 0) //BOTTOM RIGHT
+    if (moveX === 0 && moveY === 0)
+      //BOTTOM RIGHT
       return;
     // this.player.classList.add('collide');
 
@@ -87,18 +97,18 @@ if( topWall.isHorizontal  && !rightWall.isHorizontal && bottomWall.isHorizontal 
 
     // console.log(moveX, moveY);
 
-    this.player.style.setProperty("--bumpX", moveX * amplitude + '%');
-    this.player.style.setProperty("--bumpY", moveY * amplitude + '%');
-    this.player.classList.add('collide');
+    this.player.style.setProperty("--bumpX", moveX * amplitude + "%");
+    this.player.style.setProperty("--bumpY", moveY * amplitude + "%");
+    this.player.classList.add("collide");
   },
 
   detectTarget: function () {
     //if coordonnées player = coordonnées target, win. and restart. (later on, move from level to next)
-    if (playerId==1 && this.col === target1PosX && this.row === target1PosY) {
+    if (playerId == 1 && this.col === target1PosX && this.row === target1PosY) {
       console.log("touché gagné!");
       createLevel();
     }
-    if (playerId==2 && this.col === target2PosX && this.row === target2PosY) {
+    if (playerId == 2 && this.col === target2PosX && this.row === target2PosY) {
       console.log("touché gagné!");
       createLevel();
     }

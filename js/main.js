@@ -15,14 +15,13 @@ let target1PosX = 12; //Math.floor(Math.random()*7)*2 //12; //est ce que positio
 let target1PosY = 4; //Math.floor(Math.random()*5)*2;//4
 
 let player2PosX = 9;
-let player2PosY = 5; 
+let player2PosY = 5;
 
-let target2PosX = 5; 
-let target2PosY = 7; 
+let target2PosX = 5;
+let target2PosY = 7;
 
 let level = -1;
 let playerId;
-
 
 window.addEventListener("load", () => {
   const urlParameter = new URLSearchParams(window.location.search);
@@ -54,8 +53,8 @@ function createLevel() {
   createGrid();
   createPlayerPositions();
 
-   PLAYER.create(player1PosX, player1PosY);
-   PLAYER.create(player2PosX, player2PosY);
+  PLAYER.create(player1PosX, player1PosY);
+  PLAYER.create(player2PosX, player2PosY);
   // PLAYER.create(0, 0);
   console.log(player1PosX, player1PosY);
   console.log(player2PosX, player2PosY);

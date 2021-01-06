@@ -1,5 +1,5 @@
 class Cell {
-  constructor(col, row, angle, posInit,level) {
+  constructor(col, row, angle, posInit, level) {
     this.col = col;
     this.row = row;
     this.angle = angle;
@@ -25,12 +25,12 @@ class Cell {
     cell.addEventListener("click", this.rotateCell.bind(this));
   }
 
-  rotateCell(e){
-      // console.log(CELLS);
-      this.rotate(90);
-      this.isHorizontal = !this.isHorizontal;
-      // console.log(this.isHorizontal, "in cell.js");
-     if(e) turnRandomCell(this.level);
+  rotateCell(e) {
+    // console.log(CELLS);
+    this.rotate(90);
+    this.isHorizontal = !this.isHorizontal;
+    // console.log(this.isHorizontal, "in cell.js");
+    if (e) turnRandomCell(this.level);
   }
 
   rotate(angle) {
