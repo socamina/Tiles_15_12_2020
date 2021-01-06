@@ -36,7 +36,7 @@ body {
   transform: rotateZ(var(--angle));
   transition: transform 0.5s;
 
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.4);
 }
 
 .cell:focus {

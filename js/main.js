@@ -1,7 +1,5 @@
 // REMPLIR un tableau avec des cellules + class Cell
 
-//paspossible de faire un rect?
-
 const GRID = {
   rows: 11,
   cols: 17,
@@ -19,26 +17,26 @@ let level = -1;
 
 window.addEventListener("load", () => {
   resizeContainer();
-  //mettre dans une autre fonction create 
- createLevel();
+  //mettre dans une autre fonction create
+  createLevel();
 });
 
-function createLevel(){
-  level++
+function createLevel() {
+  level++;
   createGrid();
   createPlayerPositions();
 
   PLAYER.create(0, 0);
-   console.log(playerPosX, playerPosY);
+  console.log(playerPosX, playerPosY);
   TARGET.create(targetPosX, targetPosY);
   // console.log(targetPosX,targetPosY);
 }
 
-function turnRandomCell(level){
+function turnRandomCell(level) {
   const rotatingCell = [];
-  for(i=0; i<level; i++){
-    const col = Math.floor(Math.random()*GRID.cols);
-    const row = Math.floor(Math.random()*GRID.rows);
+  for (i = 0; i < level; i++) {
+    const col = Math.floor(Math.random() * GRID.cols);
+    const row = Math.floor(Math.random() * GRID.rows);
     CELLS[row][col].rotateCell(null);
     // rotatingCell.push({col:col, row:row})
   }
@@ -49,29 +47,46 @@ function turnRandomCell(level){
   // });
 }
 
-window.addEventListener("keydown", (event) => {
-  // console.log(event.key, 'Dead');
+// window.addEventListener("keydown", (event) => {
+//   // console.log(event.key, 'Dead');
+//   // if (event.key == "ArrowUp") {
+//   //   PLAYER.move(-1, -1);
+//   // } else if (event.key == "ArrowRight") {
+//   //   PLAYER.move(1, -1);
+//   // } else if (event.key == "ArrowDown") {
+//   //   PLAYER.move(1, 1);
+//   // } else if (event.key == "ArrowLeft") {
+//   //   PLAYER.move(-1, 1);
+//   // }
 
-  // if (event.key == "ArrowUp") {
-  //   PLAYER.move(-1, -1);
-  // } else if (event.key == "ArrowRight") {
-  //   PLAYER.move(1, -1);
-  // } else if (event.key == "ArrowDown") {
-  //   PLAYER.move(1, 1);
-  // } else if (event.key == "ArrowLeft") {
-  //   PLAYER.move(-1, 1);
-  // }
+//   if (event.key == "è") {
+//     PLAYER.move(-1, -1);
+//   } else if (event.key == "Dead") {
+//     PLAYER.move(1, -1);
+//   } else if (event.key == "à") {
+//     PLAYER.move(1, 1);
+//   } else if (event.key == "é") {
+//     PLAYER.move(-1, 1);
+//   }
+// });
 
-  if (event.key == "è") {
+let keysPressed = {};
+document.addEventListener("keydown", (event) => {
+  keysPressed[event.key] = true;
+
+  if (keysPressed["ArrowUp"] && event.key == "ArrowLeft") {
     PLAYER.move(-1, -1);
-  } else if (event.key == "Dead") {
+  } else if (keysPressed["ArrowUp"] && event.key == "ArrowRight") {
     PLAYER.move(1, -1);
-  } else if (event.key == "à") {
+  } else if (keysPressed["ArrowDown"] && event.key == "ArrowRight") {
     PLAYER.move(1, 1);
-  } else if (event.key == "é") {
+  } else if (keysPressed["ArrowDown"] && event.key == "ArrowLeft") {
     PLAYER.move(-1, 1);
   }
+});
 
+document.addEventListener("keyup", (event) => {
+  delete keysPressed[event.key];
 });
 
 function resizeContainer() {
@@ -87,7 +102,7 @@ function createGrid() {
     CELLS[row] = rows;
 
     for (let col = 0; col < GRID.cols; col++) {
-      rows[col] = new Cell(col, row, 0, false,level);
+      rows[col] = new Cell(col, row, 0, false, level);
     }
   }
 }
