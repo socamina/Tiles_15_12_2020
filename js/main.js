@@ -21,47 +21,119 @@ let target2PosX = 5;
 let target2PosY = 7;
 
 let level = -1;
-let playerId;
+let PLAYER_ID;
+
+let OPPONENT, PLAYER;
+
+let LEVEL_STARTED = false;
 
 window.addEventListener("load", () => {
   const urlParameter = new URLSearchParams(window.location.search);
-  playerId = urlParameter.get("player");
+  // PLAYER_ID = urlParameter.get("player");
+  PLAYER_ID = window.location.hash.replace("#", "");
+  if (!PLAYER_ID)
+    alert(
+      'Please set the url hash to "player_1" or "player_2"\n\nEx: http://localhost:5501/#player_1"'
+    );
+
+  if (PLAYER_ID === "player_1") {
+    console.log("I am admin and can modify the grid and place players");
+
+    // DATABASE.ref("/").on("value", (snap) => {
+    //   let values = snap.val();
+    //   console.log(values);
+    // });
+
+    initLevel();
+    createGrid();
+  } else {
+
+    console.log('I am listener');
+    DATABASE.ref("/").on("value", (snap) => {
+      let values = snap.val();
+      console.log(values);
+
+      listenLevel(values.player_1.position, values.player_2.position);
+      
+    });
+
+    createGrid();
+  }
+
   resizeContainer();
 
-  const data = {
-    id: playerId,
-    player1PosXdata: player1PosX,
-    player1PosYdata: player1PosY,
-    target1PosXdata: target1PosX,
-    target1PosYdata: target1PosY,
+  // const data = {
+  //   id: playerId,
+  //   player1PosXdata: player1PosX,
+  //   player1PosYdata: player1PosY,
+  //   target1PosXdata: target1PosX,
+  //   target1PosYdata: target1PosY,
 
-    player2PosXdata: player1PosX,
-    player2PosYdata: player1PosY,
-    target2PosXdata: target1PosX,
-    target2PosYdata: target1PosY,
+  //   player2PosXdata: player1PosX,
+  //   player2PosYdata: player1PosY,
+  //   target2PosXdata: target1PosX,
+  //   target2PosYdata: target1PosY,
 
-    //envoyer la grille somehow ?
-  };
+  //   //envoyer la grille somehow ?
+  // };
 
-  SEND_MESSAGE("TILES", data);
-
-  createLevel();
+  // SEND_MESSAGE("TILES", data);
 });
 
-function createLevel() {
+function randomPosition(isUneven) {
+  let col, row;
+
+  if (!isUneven) {
+    col = Math.floor((GRID.cols / 2 - 1) * Math.random()) * 2 + 1;
+    row = Math.floor((GRID.rows / 2 - 1) * Math.random()) * 2 + 1;
+  } else {
+    col = Math.floor((GRID.cols / 2) * Math.random()) * 2;
+    row = Math.floor((GRID.rows / 2 - 1) * Math.random()) * 2 + 1;
+  }
+
+  return { col, row };
+}
+
+function listenLevel(p1pos, p2pos) {
+  if (LEVEL_STARTED) return;
+
+  console.log(p1pos,p2pos)
+
+  LEVEL_STARTED = true;
+  PLAYER = new Player(p1pos.col, p1pos.row);
+  OPPONENT = new Player(p2pos.col, p2pos.row);
+}
+
+function initLevel() {
+  let isUneven = Math.round(Math.random()) ? "player_1" : "player_2";
+
+  let p1pos = randomPosition(isUneven);
+  let p2pos = randomPosition(!isUneven);
+
+  console.log(p1pos, p2pos);
+
+  PLAYER = new Player(p1pos.col, p1pos.row);
+  OPPONENT = new Player(p2pos.col, p2pos.row);
+
+  SEND_MESSAGE("player_1/position", p1pos);
+  SEND_MESSAGE("player_2/position", p2pos);
+  // OPPONENT = new Player(0, 0);
+
+  // createComponents();
   level++;
-  createGrid();
-  createPlayerPositions();
+  // createGrid();
+  // showDebugPoints();
 
-  PLAYER.create(player1PosX, player1PosY);
-  PLAYER.create(player2PosX, player2PosY);
-  // PLAYER.create(0, 0);
-  console.log(player1PosX, player1PosY);
-  console.log(player2PosX, player2PosY);
+  // OPPONENT = new Player(player1PosX, player1PosY);
 
-  TARGET.create(target1PosX, target1PosY);
-  TARGET.create(target2PosX, target2PosY);
-  // console.log(targetPosX,targetPosY);
+  // // PLAYER.create(player2PosX, player2PosY);
+  // // PLAYER.create(0, 0);
+  // console.log(player1PosX, player1PosY);
+  // console.log(player2PosX, player2PosY);
+
+  // TARGET.create(target1PosX, target1PosY);
+  // TARGET.create(target2PosX, target2PosY);
+  // // console.log(targetPosX,targetPosY);
 }
 
 function turnRandomCell(level) {
@@ -122,12 +194,12 @@ function createGrid() {
   }
 }
 
-function createPlayerPositions() {
-  const debugGrid = document.querySelector(".container .debug-grid");
+// function showDebugPoints() {
+//   const debugGrid = document.querySelector(".container .debug-grid");
 
-  for (let row = 0; row < GRID.rows - 1; row++) {
-    for (let col = 0; col < GRID.cols - 1; col++) {
-      createDebugPoint(col, row, debugGrid);
-    }
-  }
-}
+//   for (let row = 0; row < GRID.rows - 1; row++) {
+//     for (let col = 0; col < GRID.cols - 1; col++) {
+//       createDebugPoint(col, row, debugGrid);
+//     }
+//   }
+// }

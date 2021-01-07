@@ -7,8 +7,8 @@ function createDebugPoint(col, row, container) {
   cell.style.setProperty("--row", row);
 }
 
-const PLAYER = {
-  create: function (col, row) {
+class Player {
+  constructor(col, row) {
     let cellTemplate = document.querySelector(".template .player");
     let container = document.querySelector(".container");
     let player = cellTemplate.cloneNode(true);
@@ -25,9 +25,15 @@ const PLAYER = {
       if ((evt.target === this.player, evt.animationName === "collide"))
         player.classList.remove("collide");
     });
-  },
+  }
 
-  move: function (moveX, moveY) {
+  position(col, row) {
+    let moveX = col - this.col;
+    let moveY = row - this.row;
+    this.move(moveX, moveY);
+  }
+
+  move(moveX, moveY) {
     let newCol = this.col + moveX;
     let newRow = this.row + moveY;
 
@@ -80,9 +86,9 @@ const PLAYER = {
     ) {
       console.log("you're trapped. GAME OVER!");
     }
-  },
+  }
 
-  bumpToWall: function (moveX, moveY) {
+  bumpToWall(moveX, moveY) {
     let x = 0,
       y = 0;
 
@@ -100,9 +106,9 @@ const PLAYER = {
     this.player.style.setProperty("--bumpX", moveX * amplitude + "%");
     this.player.style.setProperty("--bumpY", moveY * amplitude + "%");
     this.player.classList.add("collide");
-  },
+  }
 
-  detectTarget: function () {
+  detectTarget() {
     //if coordonnées player = coordonnées target, win. and restart. (later on, move from level to next)
     if (playerId == 1 && this.col === target1PosX && this.row === target1PosY) {
       console.log("touché gagné!");
@@ -112,5 +118,5 @@ const PLAYER = {
       console.log("touché gagné!");
       createLevel();
     }
-  },
-};
+  }
+}
