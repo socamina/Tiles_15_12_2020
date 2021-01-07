@@ -7,7 +7,7 @@ const firebaseConfig = {
   projectId: "tiles-bd040",
   storageBucket: "tiles-bd040.appspot.com",
   messagingSenderId: "327492910640",
-  appId: "1:327492910640:web:79bdfdac67bb26671e37f5"
+  appId: "1:327492910640:web:79bdfdac67bb26671e37f5",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -41,7 +41,14 @@ firebase
 
 DATABASE = firebase.database();
 
-function SEND_MESSAGE(_type, _data = "yes") {
+// SEND_MESSAGE('TILES/id/hello/wtf/lol', 4)
+
+// DATABASE.ref("TILES/id").on("value", function (snapshot) {
+//   let values = snapshot.val();
+//   console.log(values);
+// });
+
+function SEND_MESSAGE(_type, _data) {
   // _data = {'data': _data, 't_created': Date.now()};
   DATABASE.ref(_type).set(_data);
 }
