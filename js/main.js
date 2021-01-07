@@ -6,15 +6,6 @@ const GRID = {
 
 const CELLS = []; //2dArray
 
-// let player1PosX = 0; //Math.floor(Math.random()*7)*2; //0;
-// let player1PosY = 0; //Math.floor(Math.random()*5)*2; //0;
-// let target1PosX = 12; //Math.floor(Math.random()*7)*2 //12; //est ce que position aléatoire de 2 en fonction du joueur possible eou je dois choisir dès le début ?
-// let target1PosY = 4; //Math.floor(Math.random()*5)*2;//4
-// let player2PosX = 9;
-// let player2PosY = 5;
-// let target2PosX = 5;
-// let target2PosY = 7;
-
 let level = -1;
 let PLAYER_ID;
 
@@ -61,20 +52,8 @@ window.addEventListener("load", () => {
   resizeContainer();
 
   // const data = {
-  //   id: playerId,
-  //   player1PosXdata: player1PosX,
-  //   player1PosYdata: player1PosY,
-  //   target1PosXdata: target1PosX,
-  //   target1PosYdata: target1PosY,
-
-  //   player2PosXdata: player1PosX,
-  //   player2PosYdata: player1PosY,
-  //   target2PosXdata: target1PosX,
-  //   target2PosYdata: target1PosY,
-
   //   //envoyer la grille somehow ?
   // };
-
   // SEND_MESSAGE("TILES", data);
 });
 
@@ -102,6 +81,9 @@ function listenLevel(p1pos, p2pos, t1pos, t2pos) {
 
   PLAYERTARGET = new Target(t1pos.col, t1pos.row);
   OPPONENTTARGET = new Target(t2pos.col, t2pos.row);
+
+  PLAYER.setTarget(PLAYERTARGET);
+  OPPONENT.setTarget(OPPONENTTARGET);
 }
 
 function initLevel() {
@@ -134,15 +116,6 @@ function initLevel() {
   // showDebugPoints();
 
   // OPPONENT = new Player(player1PosX, player1PosY);
-
-  // // PLAYER.create(player2PosX, player2PosY);
-  // // PLAYER.create(0, 0);
-  // console.log(player1PosX, player1PosY);
-  // console.log(player2PosX, player2PosY);
-
-  // TARGET.create(target1PosX, target1PosY);
-  // TARGET.create(target2PosX, target2PosY);
-  // // console.log(targetPosX,targetPosY);
 }
 
 function turnRandomCell(level) {

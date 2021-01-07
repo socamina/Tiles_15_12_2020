@@ -6,6 +6,7 @@ function createDebugPoint(col, row, container) {
     cell.style.setProperty("--col", col);
     cell.style.setProperty("--row", row);
   }
+
   class Target {
     constructor(col, row) {
           let cellTemplate = document.querySelector(".template .target");
@@ -16,11 +17,10 @@ function createDebugPoint(col, row, container) {
           cell.style.setProperty('--row', row);
   
           this.elem = cell;
+          this.col =col;
+          this.row=row;
       }
-  
   }
-
-
 
 //   const TARGET = {
 //     create: function(col, row) {
@@ -36,43 +36,3 @@ function createDebugPoint(col, row, container) {
 //     },
 
 // }
-
-//   const PLAYER = {
-//     create: function (col, row) {
-//       let cellTemplate = document.querySelector(".template .player");
-//       let container = document.querySelector(".container");
-//       let player = cellTemplate.cloneNode(true);
-//       container.appendChild(player);
-  
-//       this.col = col;
-//       this.row = row;
-//       this.player = player;
-  
-//       player.style.setProperty("--posX", this.col);
-//       player.style.setProperty("--posY", this.row);
-  
-//       player.addEventListener('animationend', (evt) => {
-//         if(evt.target === this.player, evt.animationName === 'collide')
-//           player.classList.remove('collide')
-//       });
-//     },
-
-//   class Player {
-//     constructor(col, row) {
-//       let cellTemplate = document.querySelector(".template .player");
-//       let container = document.querySelector(".container");
-//       let player = cellTemplate.cloneNode(true);
-//       container.appendChild(player);
-  
-//       this.col = col;
-//       this.row = row;
-//       this.player = player;
-  
-//       player.style.setProperty("--posX", this.col);
-//       player.style.setProperty("--posY", this.row);
-  
-//       player.addEventListener("animationend", (evt) => {
-//         if ((evt.target === this.player, evt.animationName === "collide"))
-//           player.classList.remove("collide");
-//       });
-//     }
