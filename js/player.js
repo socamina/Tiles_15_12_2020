@@ -110,7 +110,7 @@ class Player {
 
   detectTarget() {
     //if coordonnées player = coordonnées target, win. and restart. (later on, move from level to next)
-    if (playerId == 1 && this.col === target1PosX && this.row === target1PosY) {
+    if (PLAYER_ID === "player_1" && this.col === target1PosX && this.row === target1PosY) {
       console.log("touché gagné!");
       createLevel();
     }

@@ -1,5 +1,3 @@
-// REMPLIR un tableau avec des cellules + class Cell
-
 const GRID = {
   rows: 12,
   cols: 16,
@@ -8,22 +6,20 @@ const GRID = {
 
 const CELLS = []; //2dArray
 
-let player1PosX = 0; //Math.floor(Math.random()*7)*2; //0;
-let player1PosY = 0; //Math.floor(Math.random()*5)*2; //0;
-
-let target1PosX = 12; //Math.floor(Math.random()*7)*2 //12; //est ce que position aléatoire de 2 en fonction du joueur possible eou je dois choisir dès le début ?
-let target1PosY = 4; //Math.floor(Math.random()*5)*2;//4
-
-let player2PosX = 9;
-let player2PosY = 5;
-
-let target2PosX = 5;
-let target2PosY = 7;
+// let player1PosX = 0; //Math.floor(Math.random()*7)*2; //0;
+// let player1PosY = 0; //Math.floor(Math.random()*5)*2; //0;
+// let target1PosX = 12; //Math.floor(Math.random()*7)*2 //12; //est ce que position aléatoire de 2 en fonction du joueur possible eou je dois choisir dès le début ?
+// let target1PosY = 4; //Math.floor(Math.random()*5)*2;//4
+// let player2PosX = 9;
+// let player2PosY = 5;
+// let target2PosX = 5;
+// let target2PosY = 7;
 
 let level = -1;
 let PLAYER_ID;
 
 let OPPONENT, PLAYER;
+let OPPONENTTARGET, PLAYERTARGET;
 
 let LEVEL_STARTED = false;
 
@@ -47,16 +43,18 @@ window.addEventListener("load", () => {
     initLevel();
     createGrid();
   } else {
-
-    console.log('I am listener');
+    console.log("I am listener");
     DATABASE.ref("/").on("value", (snap) => {
       let values = snap.val();
       console.log(values);
 
-      listenLevel(values.player_1.position, values.player_2.position);
-      
+      listenLevel(
+        values.player_1.position,
+        values.player_2.position,
+        values.target_1.position,
+        values.target_2.position
+      );
     });
-
     createGrid();
   }
 
@@ -80,43 +78,54 @@ window.addEventListener("load", () => {
   // SEND_MESSAGE("TILES", data);
 });
 
-function randomPosition(isUneven) {
+function randomPosition(isOdd) {
   let col, row;
 
-  if (!isUneven) {
+  if (!isOdd) {
     col = Math.floor((GRID.cols / 2 - 1) * Math.random()) * 2 + 1;
     row = Math.floor((GRID.rows / 2 - 1) * Math.random()) * 2 + 1;
   } else {
     col = Math.floor((GRID.cols / 2) * Math.random()) * 2;
     row = Math.floor((GRID.rows / 2 - 1) * Math.random()) * 2 + 1;
   }
-
   return { col, row };
 }
 
-function listenLevel(p1pos, p2pos) {
+function listenLevel(p1pos, p2pos, t1pos, t2pos) {
   if (LEVEL_STARTED) return;
 
-  console.log(p1pos,p2pos)
+  console.log(p1pos, p2pos, t1pos, t2pos);
 
   LEVEL_STARTED = true;
   PLAYER = new Player(p1pos.col, p1pos.row);
   OPPONENT = new Player(p2pos.col, p2pos.row);
+
+  PLAYERTARGET = new Target(t1pos.col, t1pos.row);
+  OPPONENTTARGET = new Target(t2pos.col, t2pos.row);
 }
 
 function initLevel() {
-  let isUneven = Math.round(Math.random()) ? "player_1" : "player_2";
+  let isOdd = Math.round(Math.random()) ? "player_1" : "player_2";
 
-  let p1pos = randomPosition(isUneven);
-  let p2pos = randomPosition(!isUneven);
+  let p1pos = randomPosition(isOdd);
+  let p2pos = randomPosition(!isOdd);
 
-  console.log(p1pos, p2pos);
+  let t1pos = randomPosition(isOdd);
+  let t2pos = randomPosition(!isOdd);
+
+  console.log(p1pos, p2pos, t1pos, t2pos);
 
   PLAYER = new Player(p1pos.col, p1pos.row);
   OPPONENT = new Player(p2pos.col, p2pos.row);
 
+  PLAYERTARGET = new Target(t1pos.col, t1pos.row);
+  OPPONENTTARGET = new Target(t2pos.col, t2pos.row);
+
   SEND_MESSAGE("player_1/position", p1pos);
   SEND_MESSAGE("player_2/position", p2pos);
+
+  SEND_MESSAGE("target_1/position", t1pos);
+  SEND_MESSAGE("target_2/position", t2pos);
   // OPPONENT = new Player(0, 0);
 
   // createComponents();
@@ -157,12 +166,6 @@ document.addEventListener("keydown", (event) => {
 
   if (keysPressed["ArrowUp"] && event.key == "ArrowLeft") {
     PLAYER.move(-1, -1);
-    // if(playerId == 1){
-    //   player1.move(-1,-1);
-    // }
-    // if(playerId == 2){
-    //   player2.move(-1,-1);
-    // }
   } else if (keysPressed["ArrowUp"] && event.key == "ArrowRight") {
     PLAYER.move(1, -1);
   } else if (keysPressed["ArrowDown"] && event.key == "ArrowRight") {
