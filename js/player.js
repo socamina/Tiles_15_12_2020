@@ -27,7 +27,7 @@ class Player {
     });
   }
 
-  setTarget(target){
+  setTarget(target) {
     this.target = target;
   }
 
@@ -80,6 +80,9 @@ class Player {
     player.style.setProperty("--posY", this.row);
     console.log(this.col, this.row);
 
+    SEND_MESSAGE("player_move/positionX", this.col);
+    SEND_MESSAGE("player_move/positionY", this.row);
+
     this.detectTarget();
 
     if (
@@ -113,12 +116,12 @@ class Player {
   }
 
   detectTarget() {
-    console.log('col' + this.col);
-    console.log('targetcol' + this.target.col);
-    
-    console.log('row' +this.row);
-    console.log('targetrow' + this.target.row);
-   
+    // console.log('col' + this.col);
+    // console.log('targetcol' + this.target.col);
+
+    // console.log('row' +this.row);
+    // console.log('targetrow' + this.target.row);
+
     //if coordonnées player = coordonnées target, win. and restart. (later on, move from level to next)
     if (this.col === this.target.col && this.row === this.target.row) {
       console.log("touché gagné!");
@@ -126,7 +129,6 @@ class Player {
     }
   }
 }
-
 
 // SEND_MESSAGE("player_1/currpos", "heho");
 // SEND_MESSAGE("player_1/currpos", "this.row" );
