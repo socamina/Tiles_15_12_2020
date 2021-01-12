@@ -113,15 +113,20 @@ class Player {
   }
 
   detectTarget() {
+    console.log('col' + this.col);
+    console.log('targetcol' + this.target.col);
+    
+    console.log('row' +this.row);
+    console.log('targetrow' + this.target.row);
+   
     //if coordonnées player = coordonnées target, win. and restart. (later on, move from level to next)
     if (this.col === this.target.col && this.row === this.target.row) {
       console.log("touché gagné!");
       createLevel();
     }
-    
-    // if (playerId == 2 && this.col === target2PosX && this.row === target2PosY) {
-    //   console.log("touché gagné!");
-    //   createLevel();
-    // }
   }
 }
+
+
+// SEND_MESSAGE("player_1/currpos", "heho");
+// SEND_MESSAGE("player_1/currpos", "this.row" );

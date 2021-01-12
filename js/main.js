@@ -4,7 +4,7 @@ const GRID = {
   cellSize: 25,
 };
 
-const CELLS = []; //2dArray
+let CELLS = []; //2dArray
 
 let level = -1;
 let PLAYER_ID;
@@ -13,6 +13,8 @@ let OPPONENT, PLAYER;
 let OPPONENTTARGET, PLAYERTARGET;
 
 let LEVEL_STARTED = false;
+
+
 
 window.addEventListener("load", () => {
   const urlParameter = new URLSearchParams(window.location.search);
@@ -35,6 +37,22 @@ window.addEventListener("load", () => {
     createGrid();
   } else {
     console.log("I am listener");
+
+    // DATABASE.ref("grid/cells").on("value", (snap) => {
+    //   let cells = snap.val();
+    //   console.log(cells);
+
+    //   for (let row = 0; row < GRID.rows; row++) {
+    //     const rows = [];
+    //     CELLS[row] = rows;
+    
+    //     for (let col = 0; col < GRID.cols; col++) {
+    //       rows[col] = new Cell(col, row, 0, false, level);
+    //     }
+    //   }
+     
+    // });
+
     DATABASE.ref("/").on("value", (snap) => {
       let values = snap.val();
       console.log(values);

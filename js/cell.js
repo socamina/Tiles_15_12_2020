@@ -31,6 +31,7 @@ class Cell {
     this.isHorizontal = !this.isHorizontal;
     // console.log(this.isHorizontal, "in cell.js");
     if (e) turnRandomCell(this.level);
+    this.updateDataBase();
   }
 
   rotate(angle) {
@@ -42,4 +43,8 @@ class Cell {
     this.angle = angle;
     this.elem.style.setProperty("--angle", this.angle + "deg");
   }
+
+updateDataBase(){
+  SEND_MESSAGE("grid/cells", CELLS);
+}
 }

@@ -17,8 +17,8 @@ function createDebugPoint(col, row, container) {
           cell.style.setProperty('--row', row);
   
           this.elem = cell;
-          this.col =col;
-          this.row=row;
+          this.col = col;
+          this.row = row;
       }
   }
 
