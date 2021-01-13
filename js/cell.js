@@ -44,7 +44,7 @@ class Cell {
     this.elem.style.setProperty("--angle", this.angle + "deg");
   }
 
-updateDataBase(){
-  SEND_MESSAGE("grid/cells", CELLS);
-}
+  updateDataBase() {
+    SEND_MESSAGE("grid/cells", CELLS);
+  }
 }

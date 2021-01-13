@@ -125,7 +125,8 @@ class Player {
     //if coordonnées player = coordonnées target, win. and restart. (later on, move from level to next)
     if (this.col === this.target.col && this.row === this.target.row) {
       console.log("touché gagné!");
-      createLevel();
+      // createLevel();
+      initLevel();
     }
   }
 }

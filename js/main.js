@@ -14,8 +14,6 @@ let OPPONENTTARGET, PLAYERTARGET;
 
 let LEVEL_STARTED = false;
 
-
-
 window.addEventListener("load", () => {
   const urlParameter = new URLSearchParams(window.location.search);
   // PLAYER_ID = urlParameter.get("player");
@@ -45,23 +43,24 @@ window.addEventListener("load", () => {
     //   for (let row = 0; row < GRID.rows; row++) {
     //     const rows = [];
     //     CELLS[row] = rows;
-    
+
     //     for (let col = 0; col < GRID.cols; col++) {
     //       rows[col] = new Cell(col, row, 0, false, level);
     //     }
     //   }
-     
     // });
 
     DATABASE.ref("/").on("value", (snap) => {
       let values = snap.val();
-      console.log(values);
+      // console.log(values);
 
       listenLevel(
         values.player_1.position,
         values.player_2.position,
         values.target_1.position,
-        values.target_2.position
+        values.target_2.position,
+        values.player_move.positionX,
+        values.player_move.positionY
       );
     });
     createGrid();
@@ -130,6 +129,7 @@ function initLevel() {
 
   // createComponents();
   level++;
+  SEND_MESSAGE("level", level);
   // createGrid();
   // showDebugPoints();
 
