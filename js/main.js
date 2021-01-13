@@ -59,8 +59,7 @@ window.addEventListener("load", () => {
         values.player_2.position,
         values.target_1.position,
         values.target_2.position,
-        values.player_move.positionX,
-        values.player_move.positionY
+        values.player_move,
       );
     });
     createGrid();
