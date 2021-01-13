@@ -8,15 +8,22 @@ function createDebugPoint(col, row, container) {
 }
 
 class Player {
-  constructor(col, row) {
+  constructor(playerId) {
     let cellTemplate = document.querySelector(".template .player");
     let container = document.querySelector(".container");
     let player = cellTemplate.cloneNode(true);
     container.appendChild(player);
 
-    this.col = col;
-    this.row = row;
+    this.col = 0;
+    this.row = 0;
+
+    this.playerId = playerId;
+    this.databaseEntry = playerId;
+
     this.player = player;
+
+    if(this.playerId === PLAYER_ID)
+      player.classList.add('activePlayer')
 
     player.style.setProperty("--posX", this.col);
     player.style.setProperty("--posY", this.row);
@@ -25,19 +32,30 @@ class Player {
       if ((evt.target === this.player, evt.animationName === "collide"))
         player.classList.remove("collide");
     });
+
+    DATABASE.ref(this.databaseEntry + "/position").on("value", (snap) => {
+      const {col, row} = snap.val();
+      this.move(col, row);
+    });
   }
 
   setTarget(target) {
     this.target = target;
   }
 
-  position(col, row) {
-    let moveX = col - this.col;
-    let moveY = row - this.row;
-    this.move(moveX, moveY);
+  // position(col, row) {
+  //   let moveX = col - this.col;
+  //   let moveY = row - this.row;
+  //   this.move(moveX, moveY);
+  // }
+
+  requestMove(col, row) {
+    // console.log(this.databaseEntry + "/position", col, row);
+    // console.log(col, row);
+    SEND_MESSAGE(this.databaseEntry + "/position", { col, row });
   }
 
-  move(moveX, moveY) {
+  requestMoveTo(moveX, moveY) {
     let newCol = this.col + moveX;
     let newRow = this.row + moveY;
 
@@ -72,18 +90,9 @@ class Player {
     if (moveLeft && !leftWall.isHorizontal)
       this.bumpToWall(moveX, moveY), (moveX = moveY = 0);
 
-    this.col += moveX;
-    this.row += moveY;
+    // console.log(this.col, this.row);
 
-    let player = this.player;
-    player.style.setProperty("--posX", this.col);
-    player.style.setProperty("--posY", this.row);
-    console.log(this.col, this.row);
-
-    SEND_MESSAGE("player_move/positionX", this.col);
-    SEND_MESSAGE("player_move/positionY", this.row);
-
-    this.detectTarget();
+    // this.detectTarget();
 
     if (
       topWall.isHorizontal &&
@@ -93,6 +102,16 @@ class Player {
     ) {
       console.log("you're trapped. GAME OVER!");
     }
+
+    this.requestMove(this.col + moveX, this.row + moveY);
+  }
+
+  move(col, row) {
+    let player = this.player;
+    this.col = col;
+    this.row = row;
+    player.style.setProperty("--posX", this.col);
+    player.style.setProperty("--posY", this.row);
   }
 
   bumpToWall(moveX, moveY) {
@@ -123,11 +142,11 @@ class Player {
     // console.log('targetrow' + this.target.row);
 
     //if coordonnées player = coordonnées target, win. and start nxt level
-    if (this.col === this.target.col && this.row === this.target.row) {
-      console.log("touché gagné!");
-      // createLevel()
-      initLevel();
-    }
+    // if (this.col === this.target.col && this.row === this.target.row) {
+    console.log("touché gagné!");
+    // createLevel()
+    // initLevel();
+    // }
   }
 }
 

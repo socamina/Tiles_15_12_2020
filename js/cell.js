@@ -4,6 +4,12 @@ class Cell {
     this.row = row;
     this.angle = angle;
     this.level = level;
+    this.databaseEntry = "grid/cells/" + this.row + "/" + this.col;
+
+    DATABASE.ref(this.databaseEntry).on("value", (snap) => {
+      const { angle } = snap.val();
+      this.rotateTo(angle)
+    });
 
     this.create(col, row);
     this.rotateTo(angle);
@@ -22,16 +28,15 @@ class Cell {
 
     this.isHorizontal = true;
 
-    cell.addEventListener("click", this.rotateCell.bind(this));
+    cell.addEventListener("click", () => this.requestRotate(90));
   }
 
-  rotateCell(e) {
-    // console.log(CELLS);
-    this.rotate(90);
-    this.isHorizontal = !this.isHorizontal;
-    // console.log(this.isHorizontal, "in cell.js");
-    if (e) turnRandomCell(this.level);
-    this.updateDataBase();
+  requestRotate(angle) {
+    this.requestRotateTo(this.angle + angle)
+  }
+
+  requestRotateTo(angle) {
+    SEND_MESSAGE(this.databaseEntry + "/angle", angle);
   }
 
   rotate(angle) {
@@ -41,10 +46,11 @@ class Cell {
 
   rotateTo(angle) {
     this.angle = angle;
+    this.isHorizontal = this.angle % 180 === 0; // isHorizontal 0, 180
     this.elem.style.setProperty("--angle", this.angle + "deg");
   }
 
-  updateDataBase() {
-    SEND_MESSAGE("grid/cells", CELLS);
-  }
+  // updateDataBase() {
+  //   SEND_MESSAGE("grid/cells", CELLS);
+  // }
 }
