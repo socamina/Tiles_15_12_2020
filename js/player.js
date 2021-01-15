@@ -135,20 +135,15 @@ class Player {
   }
 
   detectTarget() {
-    // console.log('col' + this.col);
-    // console.log('targetcol' + this.target.col);
-
-    // console.log('row' +this.row);
-    // console.log('targetrow' + this.target.row);
-
-    //if coordonnées player = coordonnées target, win. and start nxt level
-    // if (this.col === this.target.col && this.row === this.target.row) {
-    console.log("touché gagné!");
-    // createLevel()
-    // initLevel();
-    // }
+    //console.log("moved");
+    DATABASE.ref(this.databaseEntry).once("value", (snap) => {
+      if(snap.val().position.col === snap.val().targetPosition.col && snap.val().position.row === snap.val().targetPosition.row){
+        // console.log(this.playerId + "victory");
+        
+        nextLevel();
+      }
+      // this.move(col, row);
+    });
   }
-}
 
-// SEND_MESSAGE("player_1/currpos", "heho");
-// SEND_MESSAGE("player_1/currpos", "this.row" );
+}

@@ -28,11 +28,41 @@ class Cell {
 
     this.isHorizontal = true;
 
-    cell.addEventListener("click", () => this.requestRotate(90));
+    cell.addEventListener("click", () => {
+      this.requestRotate(90);
+      //  this.connect.bind(this)
+    });
+
+    
   }
 
+  // function connect(col,row){
+  //   CELLS[row][col].requestRotate(90);
+  // }
+  // function turnRandomCell(level){
+  //   const rotatingCell = [];
+  //   for(i=0; i<level; i++){
+  //     const col = Math.floor(Math.random()*GRID.cols);
+  //     const row = Math.floor(Math.random()*GRID.rows);
+  //     CELLS[row][col].rotateCell(null);
+  //   }
+  // }
+
+  // connect(level){
+  //   // CELLS[row][col].requestRotate(90);
+  //   const rotatingCell = [];
+  //   let i;
+  //   for(i=0; i<level; i++){
+  //     const col = Math.floor(Math.random()*GRID.cols);
+  //     const row = Math.floor(Math.random()*GRID.rows);
+  //     // CELLS[row][col].rotateCell(null);
+  //     CELLS[row][col].requestRotate(90);
+  // }}
+
+  
   requestRotate(angle) {
     this.requestRotateTo(this.angle + angle)
+    // this.connect();
   }
 
   requestRotateTo(angle) {
@@ -53,4 +83,13 @@ class Cell {
   // updateDataBase() {
   //   SEND_MESSAGE("grid/cells", CELLS);
   // }
+
+//   rotateCell(e){
+//     //à qq part ici surmnet indqiueur le nniveau ?
+//      // console.log(CELLS);
+//      this.rotate(90);
+//      this.isHorizontal = !this.isHorizontal;
+//      // console.log(this.isHorizontal, "in cell.js");
+//     if(e) turnRandomCell(this.level);
+//  }
 }

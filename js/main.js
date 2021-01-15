@@ -10,7 +10,7 @@ let level = -1;
 let PLAYER_ID, OPPONENT_ID;
 
 let OPPONENT, PLAYER;
-let OPPONENTTARGET, PLAYERTARGET;
+let OPPONENT_TARGET, PLAYER_TARGET;
 
 let LEVEL_STARTED = false;
 
@@ -25,7 +25,9 @@ window.addEventListener("load", () => {
     );
 
   createPlayers();
+  createTargets();
   createGrid();
+  PLAYER.detectTarget();
 
   if (PLAYER_ID === "player_1") {
     console.log("I am admin and can modify the grid and place players");
@@ -51,12 +53,12 @@ function randomPosition(isOdd) {
 function createPlayers() {
   PLAYER = new Player(PLAYER_ID);
   OPPONENT = new Player(OPPONENT_ID);
+}
 
-  // PLAYERTARGET = new Target(t1pos.col, t1pos.row);
-  // OPPONENTTARGET = new Target(t2pos.col, t2pos.row);
-
-  // PLAYER.setTarget(PLAYERTARGET);
-  // OPPONENT.setTarget(OPPONENTTARGET);
+function createTargets(){
+  PLAYER_TARGET = new Target(PLAYER_ID);
+  OPPONENT_TARGET = new Target(OPPONENT_ID);
+ 
 }
 
 function nextLevel() {
@@ -68,47 +70,35 @@ function nextLevel() {
   let t1pos = randomPosition(isOdd);
   let t2pos = randomPosition(!isOdd);
 
-  console.log(p1pos, p2pos, t1pos, t2pos);
+  //console.log(p1pos, p2pos, t1pos, t2pos);
 
   PLAYER.requestMove(p1pos.col, p1pos.row);
   OPPONENT.requestMove(p2pos.col, p2pos.row);
 
-  // PLAYERTARGET = new Target(t1pos.col, t1pos.row);
-  // OPPONENTTARGET = new Target(t2pos.col, t2pos.row);
+  PLAYER_TARGET.showTarget(t1pos.col, t1pos.row);
+  OPPONENT_TARGET.showTarget(t2pos.col, t2pos.row);
+  //console.log(PLAYER_TARGET);
 
   randomizeGrid();
 
   level++;
   SEND_MESSAGE("level", level);
+  PLAYER.detectTarget();
+  console.log(level);
 }
-
-// function turnRandomCell(level) {
-//   const rotatingCell = [];
-//   for (i = 0; i < level; i++) {
-//     const col = Math.floor(Math.random() * GRID.cols);
-//     const row = Math.floor(Math.random() * GRID.rows);
-//     CELLS[row][col].rotateCell(null);
-//     // rotatingCell.push({col:col, row:row})
-//   }
-//   // rotatingCell.forEach((item, index)=>{
-//   //   // console.log(CELLS[item.row][item.col]);
-//   //   //vérifier sens grille
-//   //   CELLS[item.row][item.col].rotateCell(null);
-//   // });
-// }
 
 let keysPressed = {};
 document.addEventListener("keydown", (event) => {
   keysPressed[event.key] = true;
-
+  PLAYER.detectTarget();
   // if (keysPressed["ArrowUp"] && event.key == "ArrowLeft") {
-  //   PLAYER.move(-1, -1);
+  //   PLAYER.requestMoveTo(-1, -1);
   // } else if (keysPressed["ArrowUp"] && event.key == "ArrowRight") {
-  //   PLAYER.move(1, -1);
+  //   PLAYER.requestMoveTo(1, -1);
   // } else if (keysPressed["ArrowDown"] && event.key == "ArrowRight") {
-  //   PLAYER.move(1, 1);
+  //   PLAYER.requestMoveTo(1, 1);
   // } else if (keysPressed["ArrowDown"] && event.key == "ArrowLeft") {
-  //   PLAYER.move(-1, 1);
+  //   PLAYER.requestMoveTo(-1, 1);
   // }
 
   if (event.key == "è") {
@@ -173,6 +163,38 @@ function randomizeGrid() {
   //   }
   // }
 }
+
+
+
+// function turnRandomCell(level){
+//   const rotatingCell = [];
+//   for(i=0; i<level; i++){
+//     const col = Math.floor(Math.random()*GRID.cols);
+//     const row = Math.floor(Math.random()*GRID.rows);
+//     CELLS[row][col].rotateCell(null);
+//     // rotatingCell.push({col:col, row:row})
+//   }
+//   // rotatingCell.forEach((item, index)=>{
+//   //   // console.log(CELLS[item.row][item.col]);
+//   //   //vérifier sens grille
+//   //   CELLS[item.row][item.col].rotateCell(null);
+//   // });
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // function showDebugPoints() {
 //   const debugGrid = document.querySelector(".container .debug-grid");
