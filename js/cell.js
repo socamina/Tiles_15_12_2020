@@ -28,36 +28,28 @@ class Cell {
     this.isHorizontal = true;
 
     cell.addEventListener("click", () => {
+      if(TURN === PLAYER_ID){
       this.requestRotate(90);
-      // ON AJOUTE DES ROTATION A DES CELLULES ALEATOIRES
+     // // ON AJOUTE DES ROTATION A DES CELLULES ALEATOIRES
       this.turnRandomCell();
-      //  this.connect.bind(this)
+     // //  this.connect.bind(this)
+      swapTurn();
+    }
+
     });
   }
+
   turnRandomCell() {
     // const rotatingCell = [];
-    for (let i = 0; i < this.level; i++) {
+    for (let i = 0; i < this.level * 3; i++) {
       const col = Math.floor(Math.random() * GRID.cols);
       const row = Math.floor(Math.random() * GRID.rows);
       CELLS[row][col].requestRotate(90);
     }
   }
 
-  // function connect(col,row){
-  //   CELLS[row][col].requestRotate(90);
-  // }
-  // function turnRandomCell(level){
-  //   const rotatingCell = [];
-  //   for(i=0; i<level; i++){
-  //     const col = Math.floor(Math.random()*GRID.cols);
-  //     const row = Math.floor(Math.random()*GRID.rows);
-  //     CELLS[row][col].rotateCell(null);
-  //   }
-  // }
-
+ 
   // connect(level){
-  //   // CELLS[row][col].requestRotate(90);
-  //   const rotatingCell = [];
   //   let i;
   //   for(i=0; i<level; i++){
   //     const col = Math.floor(Math.random()*GRID.cols);
@@ -85,17 +77,4 @@ class Cell {
     this.isHorizontal = this.angle % 180 === 0; // isHorizontal 0, 180
     this.elem.style.setProperty("--angle", this.angle + "deg");
   }
-
-  // updateDataBase() {
-  //   SEND_MESSAGE("grid/cells", CELLS);
-  // }
-
-  //   rotateCell(e){
-  //     //à qq part ici surmnet indqiueur le nniveau ?
-  //      // console.log(CELLS);
-  //      this.rotate(90);
-  //      this.isHorizontal = !this.isHorizontal;
-  //      // console.log(this.isHorizontal, "in cell.js");
-  //     if(e) turnRandomCell(this.level);
-  //  }
 }

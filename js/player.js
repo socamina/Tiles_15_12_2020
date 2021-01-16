@@ -23,7 +23,7 @@ class Player {
     this.player = player;
 
     if(this.playerId === PLAYER_ID)
-      player.classList.add('activePlayer')
+      player.classList.add('activePlayer');
 
     player.style.setProperty("--posX", this.col);
     player.style.setProperty("--posY", this.row);
@@ -37,6 +37,8 @@ class Player {
       const {col, row} = snap.val();
       this.move(col, row);
     });
+
+  
   }
 
   setTarget(target) {
@@ -48,6 +50,7 @@ class Player {
   //   let moveY = row - this.row;
   //   this.move(moveX, moveY);
   // }
+
 
   requestMove(col, row) {
     // console.log(this.databaseEntry + "/position", col, row);

@@ -6,7 +6,7 @@ const GRID = {
 
 let CELLS = []; //2dArray
 
-let level = -1;
+let level = 0;
 let PLAYER_ID, OPPONENT_ID;
 
 let OPPONENT, PLAYER;
@@ -33,11 +33,15 @@ window.addEventListener("load", () => {
   // PLAYER_ID = urlParameter.get("player");
   PLAYER_ID = window.location.hash.replace("#", "");
   OPPONENT_ID = PLAYER_ID === "player_1" ? "player_2" : "player_1";
+
+  let TURN;
+
   if (!PLAYER_ID)
     alert(
       'Please set the url hash to "player_1" or "player_2"\n\nEx: http://localhost:5501/#player_1"'
     );
 
+  initTurn();
   createPlayers();
   createTargets();
   createGrid();
@@ -103,6 +107,7 @@ function nextLevel() {
 let keysPressed = {};
 document.addEventListener("keydown", (event) => {
   keysPressed[event.key] = true;
+
   PLAYER.detectTarget();
   // if (keysPressed["ArrowUp"] && event.key == "ArrowLeft") {
   //   PLAYER.requestMoveTo(-1, -1);
@@ -113,15 +118,18 @@ document.addEventListener("keydown", (event) => {
   // } else if (keysPressed["ArrowDown"] && event.key == "ArrowLeft") {
   //   PLAYER.requestMoveTo(-1, 1);
   // }
-
-  if (event.key == "è") {
+  if (event.key == "è" && TURN === PLAYER_ID) {
     PLAYER.requestMoveTo(-1, -1);
-  } else if (event.key == "Dead") {
+    swapTurn();
+  } else if (event.key == "Dead" && TURN === PLAYER_ID) {
     PLAYER.requestMoveTo(1, -1);
-  } else if (event.key == "à") {
+    swapTurn();
+  } else if (event.key == "à" && TURN === PLAYER_ID) {
     PLAYER.requestMoveTo(1, 1);
-  } else if (event.key == "é") {
+    swapTurn();
+  } else if (event.key == "é" && TURN === PLAYER_ID) {
     PLAYER.requestMoveTo(-1, 1);
+    swapTurn();
   }
 });
 
