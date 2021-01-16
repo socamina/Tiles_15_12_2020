@@ -14,6 +14,20 @@ let OPPONENT_TARGET, PLAYER_TARGET;
 
 let LEVEL_STARTED = false;
 
+/**
+ *
+ * ECOUTER LES CHANGEMENT DE LEVEL DEPUIS FB
+ */
+DATABASE.ref("level").on("value", (snap) => {
+  const val = snap.val();
+  //on passe l'info à toutes les cellules que le level a changé....
+  // LE RESTE SE PASSE DANS LA CLASSE CELL
+  const allCELLS = [].concat(...CELLS);
+  allCELLS.forEach((item) => {
+    item.level = val;
+  });
+});
+
 window.addEventListener("load", () => {
   const urlParameter = new URLSearchParams(window.location.search);
   // PLAYER_ID = urlParameter.get("player");
@@ -55,10 +69,9 @@ function createPlayers() {
   OPPONENT = new Player(OPPONENT_ID);
 }
 
-function createTargets(){
+function createTargets() {
   PLAYER_TARGET = new Target(PLAYER_ID);
   OPPONENT_TARGET = new Target(OPPONENT_ID);
- 
 }
 
 function nextLevel() {
@@ -129,7 +142,7 @@ function createGrid() {
     CELLS[row] = rows;
 
     for (let col = 0; col < GRID.cols; col++) {
-      rows[col] = new Cell(col, row, 0, false, level);
+      rows[col] = new Cell(col, row, 0, false, level, CELLS);
     }
   }
 }
@@ -164,8 +177,6 @@ function randomizeGrid() {
   // }
 }
 
-
-
 // function turnRandomCell(level){
 //   const rotatingCell = [];
 //   for(i=0; i<level; i++){
@@ -180,21 +191,6 @@ function randomizeGrid() {
 //   //   CELLS[item.row][item.col].rotateCell(null);
 //   // });
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // function showDebugPoints() {
 //   const debugGrid = document.querySelector(".container .debug-grid");

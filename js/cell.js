@@ -5,10 +5,9 @@ class Cell {
     this.angle = angle;
     this.level = level;
     this.databaseEntry = "grid/cells/" + this.row + "/" + this.col;
-
     DATABASE.ref(this.databaseEntry).on("value", (snap) => {
       const { angle } = snap.val();
-      this.rotateTo(angle)
+      this.rotateTo(angle);
     });
 
     this.create(col, row);
@@ -30,10 +29,18 @@ class Cell {
 
     cell.addEventListener("click", () => {
       this.requestRotate(90);
+      // ON AJOUTE DES ROTATION A DES CELLULES ALEATOIRES
+      this.turnRandomCell();
       //  this.connect.bind(this)
     });
-
-    
+  }
+  turnRandomCell() {
+    // const rotatingCell = [];
+    for (let i = 0; i < this.level; i++) {
+      const col = Math.floor(Math.random() * GRID.cols);
+      const row = Math.floor(Math.random() * GRID.rows);
+      CELLS[row][col].requestRotate(90);
+    }
   }
 
   // function connect(col,row){
@@ -59,9 +66,8 @@ class Cell {
   //     CELLS[row][col].requestRotate(90);
   // }}
 
-  
   requestRotate(angle) {
-    this.requestRotateTo(this.angle + angle)
+    this.requestRotateTo(this.angle + angle);
     // this.connect();
   }
 
@@ -84,12 +90,12 @@ class Cell {
   //   SEND_MESSAGE("grid/cells", CELLS);
   // }
 
-//   rotateCell(e){
-//     //à qq part ici surmnet indqiueur le nniveau ?
-//      // console.log(CELLS);
-//      this.rotate(90);
-//      this.isHorizontal = !this.isHorizontal;
-//      // console.log(this.isHorizontal, "in cell.js");
-//     if(e) turnRandomCell(this.level);
-//  }
+  //   rotateCell(e){
+  //     //à qq part ici surmnet indqiueur le nniveau ?
+  //      // console.log(CELLS);
+  //      this.rotate(90);
+  //      this.isHorizontal = !this.isHorizontal;
+  //      // console.log(this.isHorizontal, "in cell.js");
+  //     if(e) turnRandomCell(this.level);
+  //  }
 }
