@@ -142,9 +142,7 @@ class Player {
     DATABASE.ref(this.databaseEntry).once("value", (snap) => {
       if(snap.val().position.col === snap.val().targetPosition.col && snap.val().position.row === snap.val().targetPosition.row){
         // console.log(this.playerId + "victory");
-        
-        nextLevel();
-      }
+        nextLevel();}
       // this.move(col, row);
     });
   }
