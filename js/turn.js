@@ -8,10 +8,14 @@ function initTurn() {
       console.log('Your turn', who);
    
       TURN = who;
+      document.getElementById('active-turn').innerHTML = `Your turn`;
+      document.getElementById('inactive-turn').innerHTML = " ";
   
       if(OPPONENT_ID === who) {
       // else{
         console.log(`It's${who}'s turn`);
+        document.getElementById('inactive-turn').innerHTML = `It's ${who}s turn`;
+        document.getElementById('active-turn').innerHTML = " ";
       }
       // }
       // YOURTURN.classList.remove("hidden",`salut${who}`);
