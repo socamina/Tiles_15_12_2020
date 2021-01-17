@@ -36,6 +36,8 @@ window.addEventListener("load", () => {
 
   let TURN;
 
+  showStartPannel();
+
   if (!PLAYER_ID)
     alert(
       'Please set the url hash to "player_1" or "player_2"\n\nEx: http://localhost:5501/#player_1"'
@@ -79,6 +81,7 @@ function createTargets() {
 }
 
 function nextLevel() {
+  console.log("level is next");
   let isOdd = Math.round(Math.random()) ? "player_1" : "player_2";
 
   let p1pos = randomPosition(isOdd);
@@ -102,6 +105,13 @@ function nextLevel() {
   SEND_MESSAGE("level", level);
   PLAYER.detectTarget();
   console.log(level);
+
+  if (PLAYER_ID && OPPONENT_ID) {
+    DATABASE.ref("level").on("value", (snap) => {
+      level = snap.val();
+      document.getElementById("level").innerHTML = `level : ${level}`;
+    });
+  }
 }
 
 let keysPressed = {};
@@ -185,6 +195,27 @@ function randomizeGrid() {
   // }
 }
 
+function showStartPannel() {
+  $("#startScreen").css("left", "0");
+}
+function hideStartPannel() {
+  $("#startScreen").css("left", "-100%");
+}
+
+function showWinPannel() {
+  $("#winScreen").css("left", "0");
+}
+function hideWinPannel() {
+  $("#winScreen").css("left", "100%");
+}
+
+function delayNextLevel() {
+  setTimeout(nextLevel, 1000);
+}
+
+function delayInit() {
+  setTimeout(init, 1000);
+}
 // function turnRandomCell(level){
 //   const rotatingCell = [];
 //   for(i=0; i<level; i++){
