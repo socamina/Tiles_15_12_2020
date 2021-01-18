@@ -146,6 +146,13 @@ class Player {
          delayNextLevel();
         //  nextLevel();
       }
+      
+      // if (PLAYER_ID){
+      //   showWinPannel();
+      // } 
+      //   OPPONENT_ID.showStartPannel;
+      // }
+      
       // this.move(col, row);
     });
   }

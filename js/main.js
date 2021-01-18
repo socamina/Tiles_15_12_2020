@@ -1,6 +1,6 @@
 const GRID = {
-  rows: 12,
-  cols: 16,
+  rows: 13,
+  cols: 21,
   cellSize: 25,
 };
 
@@ -109,7 +109,7 @@ function nextLevel() {
   if (PLAYER_ID && OPPONENT_ID) {
     DATABASE.ref("level").on("value", (snap) => {
       level = snap.val();
-      document.getElementById("level").innerHTML = `level : ${level}`;
+      document.getElementById("level").innerHTML = `level ${level}`;
     });
   }
 }
@@ -216,6 +216,7 @@ function delayNextLevel() {
 function delayInit() {
   setTimeout(init, 1000);
 }
+
 // function turnRandomCell(level){
 //   const rotatingCell = [];
 //   for(i=0; i<level; i++){
