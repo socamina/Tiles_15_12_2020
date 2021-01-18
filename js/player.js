@@ -144,7 +144,7 @@ class Player {
         // console.log(this.playerId + "victory");
          showWinPannel();
          delayNextLevel();
-         nextLevel();
+        //  nextLevel();
       }
       // this.move(col, row);
     });

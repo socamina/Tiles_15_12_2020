@@ -41,7 +41,7 @@ class Cell {
 
   turnRandomCell() {
     // const rotatingCell = [];
-    for (let i = 0; i < this.level * 3; i++) {
+    for (let i = 0; i < this.level * 10; i++) {
       const col = Math.floor(Math.random() * GRID.cols);
       const row = Math.floor(Math.random() * GRID.rows);
       CELLS[row][col].requestRotate(90);
