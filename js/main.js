@@ -1,6 +1,6 @@
 const GRID = {
-  rows: 13,
-  cols: 21,
+  rows: 13, //12
+  cols: 21, //16
   cellSize: 25,
 };
 

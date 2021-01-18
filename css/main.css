@@ -23,7 +23,8 @@ body {
   /* font-family: 'Poppins', sans-serif; */
   
   /* font-family: 'Euclid', sans-serif; */
-  font-family: 'Circular', sans-serif;
+  font-family: 'Jost', sans-serif;
+  overflow: hidden;
 }
 
 
@@ -34,14 +35,14 @@ body {
   /* display: inline; */
   pointer-events: none;
   z-index: 1200;
-  /* text-transform: lowercase; */
+  text-transform: lowercase;
 }
 
 #level{
     /* font-size: 2rem; */
-    font-size : min(4vw, 8vh, 2.2rem);
+    font-size : min(4vw, 8vh, 2rem);
     position: absolute;
-    top:2.5vh;
+    top:1.5vh;
     left: 50vw;
     transform: translate(-50%);
     transition: opacity 0.4s ; 
@@ -59,9 +60,9 @@ body {
 
 #active-turn{
     /* font-size: 2rem; */
-    font-size : min(3vw, 6vh, 1.6rem);
+    font-size : min(4vw, 8vh, 1.8rem);
     position: absolute;
-    bottom:2.5vh;
+    bottom:1.5vh;
     left: 50vw;
     transform: translate(-50%);
     transition: opacity 0.4s ; 
@@ -70,9 +71,9 @@ body {
 
 #inactive-turn{
   /* font-size: 2rem; */
-  font-size : min(3vw, 6vh, 1.6rem);
+  font-size : min(4vw, 8vh, 1.8rem);
   position: absolute;
-  bottom:2.5vh;
+  bottom:1.5vh;
   left: 50vw;
   transform: translate(-50%);
   transition: opacity 0.4s ; 
@@ -284,9 +285,12 @@ body {
 }
 
 #startScreen a {
-  border: 1px solid black;
+  border: 4px solid black;
   border-radius: 30px;
-  padding:30px;
+  padding:10px 30px 15px 30px;
+  background-color: white;
+  margin-top: 0vh;
+  margin-bottom: 10vh;
 }
 
 #winScreen{
@@ -306,7 +310,9 @@ body {
 }
 
 #winScreen a {
-  border: 1px solid black;
+  border: 4px solid black;
+  background-color: white;
   border-radius: 30px;
   padding:30px;
+  margin-top: 10vh;
 }
